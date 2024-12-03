@@ -29,7 +29,7 @@ async def add_rclone_download(listener, path):
         rpath = listener.link
 
     cmd1 = [
-        "zcl",
+        "xyone",
         "lsjson",
         "--fast-list",
         "--stat",
@@ -40,7 +40,7 @@ async def add_rclone_download(listener, path):
         f"{remote}:{rpath}",
     ]
     cmd2 = [
-        "zcl",
+        "xyone",
         "size",
         "--fast-list",
         "--json",

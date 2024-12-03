@@ -199,7 +199,7 @@ class RcloneTransferHelper:
             destination = epath
 
         cmd = [
-            "zcl",
+            "xyone",
             "lsjson",
             "--fast-list",
             "--no-mimetype",
@@ -346,7 +346,7 @@ class RcloneTransferHelper:
             else:
                 destination = f"{oremote}:{self._listener.name}"
 
-            cmd = ["zcl", "link", "--config", oconfig_path, destination]
+            cmd = ["xyone", "link", "--config", oconfig_path, destination]
             res, err, code = await cmd_exec(cmd)
 
             if code == 0:
@@ -419,7 +419,7 @@ class RcloneTransferHelper:
                         f"/{self._listener.name}" if dst_path else self._listener.name
                     )
 
-                cmd = ["zcl", "link", "--config", config_path, destination]
+                cmd = ["xyone", "link", "--config", config_path, destination]
                 res, err, code = await cmd_exec(cmd)
 
                 if self._listener.is_cancelled:
@@ -446,7 +446,7 @@ class RcloneTransferHelper:
         else:
             ext = "*.{" + ",".join(self._listener.extension_filter) + "}"
         cmd = [
-            "zcl",
+            "xyone",
             method,
             "--fast-list",
             "--config",

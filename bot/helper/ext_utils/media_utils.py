@@ -17,7 +17,7 @@ async def convert_video(listener, video_file, ext, retry=False):
     output = f"{base_name}.{ext}"
     if retry:
         cmd = [
-            "render",
+            "xyvid",
             "-i",
             video_file,
             "-c:v",
@@ -35,7 +35,7 @@ async def convert_video(listener, video_file, ext, retry=False):
         else:
             cmd[7:7] = ["-c:s", "copy"]
     else:
-        cmd = ["render", "-i", video_file, "-map", "0", "-c", "copy", output]
+        cmd = ["xyvid", "-i", video_file, "-map", "0", "-c", "copy", output]
     if listener.is_cancelled:
         return False
     async with subprocess_lock:
@@ -69,7 +69,7 @@ async def convert_audio(listener, audio_file, ext):
     base_name = ospath.splitext(audio_file)[0]
     output = f"{base_name}.{ext}"
     cmd = [
-        "render",
+        "xyvid",
         "-i",
         audio_file,
         "-threads",
@@ -239,7 +239,7 @@ async def take_ss(video_file, ss_nb) -> bool:
         for i in range(ss_nb):
             output = f"{dirpath}/SS.{name}_{i:02}.png"
             cmd = [
-                "render",
+                "xyvid",
                 "-hide_banner",
                 "-loglevel",
                 "error",
@@ -282,7 +282,7 @@ async def get_audio_thumbnail(audio_file):
     await makedirs(output_dir, exist_ok=True)
     output = ospath.join(output_dir, f"{time()}.jpg")
     cmd = [
-        "render",
+        "xyvid",
         "-hide_banner",
         "-loglevel",
         "error",
@@ -314,7 +314,7 @@ async def get_video_thumbnail(video_file, duration):
         duration = 3
     duration = duration // 2
     cmd = [
-        "render",
+        "xyvid",
         "-hide_banner",
         "-loglevel",
         "error",
@@ -357,7 +357,7 @@ async def get_multiple_frames_thumbnail(video_file, layout, keep_screenshots):
     await makedirs(output_dir, exist_ok=True)
     output = ospath.join(output_dir, f"{time()}.jpg")
     cmd = [
-        "render",
+        "xyvid",
         "-hide_banner",
         "-loglevel",
         "error",
@@ -422,7 +422,7 @@ async def split_file(
         while i <= parts or start_time < duration - 4:
             out_path = f"{dirpath}/{base_name}.part{i:03}{extension}"
             cmd = [
-                "render",
+                "xyvid",
                 "-hide_banner",
                 "-loglevel",
                 "error",
@@ -580,7 +580,7 @@ async def create_sample_video(listener, video_file, sample_duration, part_durati
     filter_complex += f"concat=n={len(segments)}:v=1:a=1[vout][aout]"
 
     cmd = [
-        "render",
+        "xyvid",
         "-i",
         video_file,
         "-filter_complex",
@@ -629,7 +629,7 @@ async def create_sample_video(listener, video_file, sample_duration, part_durati
     for index, (start_time, end_time) in enumerate(segments, start=1):
         output_seg = f"{dir}/mltb_segments/segment{index}.{ext}"
         cmd = [
-            "render",
+            "xyvid",
             "-i",
             video_file,
             "-ss",
@@ -670,7 +670,7 @@ async def create_sample_video(listener, video_file, sample_duration, part_durati
         await f.write("\n".join(finished_segments))
 
     cmd = [
-        "render",
+        "xyvid",
         "-f",
         "concat",
         "-safe",

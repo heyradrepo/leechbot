@@ -35,7 +35,7 @@ async def rclone_serve_booter():
         except:
             pass
     cmd = [
-        "zcl",
+        "xyone",
         "serve",
         "http",
         "--config",
