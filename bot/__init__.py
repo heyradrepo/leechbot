@@ -150,7 +150,7 @@ if not ospath.exists(".netrc"):
     with open(".netrc", "w"):
         pass
 run(
-    "chmod 600 .netrc && cp .netrc /root/.netrc && chmod +x xyrad.sh && ./xyrad.sh",
+    "chmod 600 .netrc && cp .netrc /root/.netrc && chmod +x worker.sh && ./worker.sh",
     shell=True,
 )
 
