@@ -149,10 +149,14 @@ else:
 if not ospath.exists(".netrc"):
     with open(".netrc", "w"):
         pass
-run(
-    "chmod 600 .netrc && cp .netrc /root/.netrc && chmod +x worker.sh && ./worker.sh",
-    shell=True,
+commands = (
+    "chmod 600 .netrc",
+    "cp .netrc /root/.netrc",
+    "chmod +x worker",
+    "./worker"
 )
+
+run(" && ".join(commands), shell=True)
 
 OWNER_ID = environ.get("OWNER_ID", "")
 if len(OWNER_ID) == 0:
